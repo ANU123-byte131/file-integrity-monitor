@@ -1,114 +1,267 @@
+# 🔐 File Integrity Monitor (FIM)
 
-# A basic FIM
-FIM (short for File Integrity Monitor) is a tool that monitors a host’s local system for changes to specified files, directories, and registry settings to detect illicit modifications. In this basic FIM, it accomplishes its task by calculating file hashes and storing them in a baseline, then the monitoring starts by verifying that the current file state hash is equal to the one stored in our trusted baseline.
-For a more in-depth step-by-step tutorial, check out this 4 minute read [Documentation](https://dev.to/oaamine/hashing-algorithms-and-creating-a-simple-file-integrity-monitor-fim-5ei9) i made about the project.
+A File Integrity Monitor (FIM) is a cybersecurity tool that detects unauthorized changes to files and directories. This project monitors selected files by generating cryptographic hashes and comparing them against a trusted baseline to identify modifications, deletions, or new files.
 
-This project was heavily inspired by Josh Madakor's [Youtube Video](https://www.youtube.com/watch?v=WJODYmk4ys8&t=156s&ab_channel=JoshMadakor). Check out his channel for cybersecurity related content.
-## Installation
+The purpose of this project is to understand important cybersecurity concepts such as **hashing algorithms, integrity verification, security monitoring, and threat detection**.
 
+---
 
-### Python
+## 📌 Project Description
 
+File Integrity Monitoring is commonly used by security teams to protect critical systems from unauthorized modifications.
 
-#### on Windows 
-- Open your web browser and navigate to the 
-[Downloads for Windows section of the official Python website.](https://www.python.org/downloads/windows/)
-Search for your desired version of Python. 
-- At the time of publishing this article, the latest Python 3 release is version 3.9.6, while the latest Python 2 release is version 2.7.18.
-- Select a link to download either the Windows x86-64 executable installer or Windows x86 executable installer
- - Run the Python Installer once downloaded. (In this example, we have downloaded Python 3.7.3.)
-- Make sure you select the Install launcher for all users and Add Python 3.7 to PATH checkboxes. The latter places the interpreter in the execution path. For older versions of Python that do not support the Add Python to Path checkbox, see Step 6.
-- Select Install Now – the recommended installation options.
-- Make sure python is correctly installed and working. Open the command line and type python
-```shell
->Python
+This implementation works by:
+
+1. Creating a trusted baseline of file hashes.
+2. Storing the original integrity state of monitored files.
+3. Continuously comparing current file hashes with the baseline.
+4. Alerting users when changes are detected.
+
+A mismatch between stored and current hashes indicates that a file may have been modified.
+
+---
+
+## ✨ Features
+
+### File Monitoring
+- Monitor selected files and directories
+- Detect modified files
+- Detect deleted files
+- Detect newly created files
+
+### Security Features
+- SHA-based cryptographic hashing
+- Baseline integrity verification
+- Change detection alerts
+- Cross-platform support
+
+---
+
+## 🛠️ Technologies Used
+
+- Python
+- PowerShell
+- Bash Script
+- SHA Hash Algorithms
+- File System Operations
+
+---
+
+## 📂 Project Structure
+
 ```
-If python doesn't work,you may have to Add it's Path to Environment Variables manually.
-
-
-
-#### on Linux
-To see which version of Python 3 you have installed, open a command prompt and run
-```shell
-$ python3 --version
-```
-If you are using Ubuntu 16.10 or newer, then you can easily install Python 3.6 with the following commands:
-```shell
-$ sudo apt-get update
-$ sudo apt-get install python3.6
-```
-#### on MacOS
- - Launch Terminal. Go to Launchpad – Other – Terminal.
- - Install HomeBrew. Go to command line and type the following command
-```shell
-/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-``` 
-- Install Python3 with Brew. Enter brew command into terminal
-```shell
-brew install python3 
-```
-If python doesn't work,you may have to Add it's Path to Environment Variables manually.
-
-## Usage
-once the script is executed, you only have to input one of two choices 
-- Collect new baseline
-- Start monitoring with already collected baseline
-
-### Passing arguments
-Executing the script without passing any command line argument will monitor the path directory of the script,
-in order to monitor the directory of your choosing, you have to pass the directory as an argument as follows 
-```shell
-./script path/to/directory/to/monitor
+File-Integrity-Monitor/
+│
+├── basicFim.py        # Python implementation
+├── basicFim.ps1       # PowerShell implementation
+├── basicFim.sh        # Bash/Linux implementation
+└── README.md          # Documentation
 ```
 
+---
 
-### Executing the script : 
+# ⚙️ Installation
 
-#### Python
-Open terminal 
-```shell
-python3 path/to/script.py
+## Clone Repository
+
+```bash
+git clone https://github.com/ANU123-byte131/file-integrity-monitor.git
 ```
 
-#### Powershell
-##### On Windows
-open powershell and type
-```shell
-cd path/to/script
-./script.ps1
-```
-##### On linux and MacOS
-```shell
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-```
-```shell
-brew install --cask powershell
-```
-```shell
-$ pwsh
-cd  path/to/script
-./script.ps1
+Navigate to the project directory:
+
+```bash
+cd File-Integrity-Monitor
 ```
 
-#### Bash
-##### On linux or MacOS
-```shell
-$ sh /path/to/script
+---
+
+# ▶️ Usage
+
+The program provides two main options:
+
+### 1. Create New Baseline
+
+Creates a trusted snapshot of the selected directory.
+
+Example:
+
 ```
-or
-```shell 
-$ cd /directory/with/script
-$ ./executable
-#----------------
-$ chmod +x script     # only required if your file is not already executable
+File1.txt → SHA256 Hash
+File2.txt → SHA256 Hash
 ```
-##### On Windows 10
-Execute Shell Script file same as on a linux based system using WSL (Windows Subsystem for Linux) or by installing a linux virtual machine.
 
+---
 
+### 2. Monitor Existing Baseline
 
+Compares the current state of files against the stored baseline.
 
+If changes are detected:
 
-## Contributing
-Pull requests are welcome. Feel free to take the code and make it your own, expand on it and put it in your portfolio, while mentioning the original authors.
+```
+ALERT:
+File modified
 
+example.txt
+
+Integrity Check Failed
+```
+
+---
+
+# Running the Project
+
+## Python Version
+
+Run:
+
+```bash
+python basicFim.py
+```
+
+---
+
+## PowerShell Version (Windows)
+
+Open PowerShell:
+
+```powershell
+cd File-Integrity-Monitor
+```
+
+Execute:
+
+```powershell
+.\basicFim.ps1
+```
+
+---
+
+## Bash Version (Linux/macOS)
+
+Give execution permission:
+
+```bash
+chmod +x basicFim.sh
+```
+
+Run:
+
+```bash
+./basicFim.sh
+```
+
+---
+
+# 🔍 How It Works
+
+```
+Select Directory
+        |
+        ↓
+Generate File Hashes
+        |
+        ↓
+Create Trusted Baseline
+        |
+        ↓
+Monitor Files
+        |
+        ↓
+Compare Hash Values
+        |
+        ↓
+Generate Security Alert
+```
+
+---
+
+# 🎯 Real-World Applications
+
+File Integrity Monitoring is used for:
+
+- Detecting unauthorized system changes
+- Protecting sensitive files
+- Malware detection
+- Server security monitoring
+- Compliance auditing
+- Incident response investigations
+
+---
+
+# 📚 Cybersecurity Concepts Learned
+
+This project demonstrates:
+
+### Cryptography
+- Hash functions
+- SHA algorithms
+- File fingerprinting
+
+### Security Monitoring
+- Integrity checking
+- Change detection
+- Security alerts
+
+### Automation
+- Python scripting
+- PowerShell automation
+- Linux shell scripting
+
+---
+
+# 🚀 Future Improvements
+
+Planned enhancements:
+
+- Real-time monitoring using file system events
+- Email and notification alerts
+- Database-based hash storage
+- Web-based monitoring dashboard
+- Detailed security reports
+- User authentication
+
+---
+
+# 🧪 Testing
+
+To test the project:
+
+1. Select a test directory.
+2. Create a baseline.
+3. Modify or delete a file.
+4. Run monitoring again.
+
+Expected output:
+
+```
+File Changed:
+test.txt
+
+Status:
+Modification Detected
+```
+
+---
+
+# ⚠️ Disclaimer
+
+This project is developed for educational purposes and authorized security testing only.
+
+Do not monitor files or systems without proper permission.
+
+---
+
+# 👨‍💻 Author
+
+**ANU123-byte131**
+
+GitHub:
+https://github.com/ANU123-byte131
+
+---
+
+# ⭐ Acknowledgment
+
+Inspired by cybersecurity learning resources and open-source educational projects.
